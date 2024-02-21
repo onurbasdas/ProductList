@@ -10,7 +10,7 @@ import Foundation
 class ProductListViewModel {
     
     func fetchProductList(completion: @escaping (Result<ProductListModel, NetworkError>) -> Void) {
-        let urlString = "https://dummyjson.com/products"
+        let urlString = Constants.apiURL
         NetworkManager.shared.fetchData(from: urlString, method: .get) { (result: Result<ProductListModel, NetworkError>) in
             completion(result)
         }

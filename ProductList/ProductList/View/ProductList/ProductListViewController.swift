@@ -23,6 +23,7 @@ class ProductListViewController: UIViewController {
     private func setupUI() {
         productListTableView.dataSource = self
         productListTableView.delegate = self
+        productListTableView.register(ProductListTableViewCell.nib(), forCellReuseIdentifier: ProductListTableViewCell.identifier)
         fetchData()
     }
     
@@ -58,8 +59,8 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = products[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: ProductListTableViewCell.identifier, for: indexPath) as! ProductListTableViewCell
+        cell.bind(data: products[indexPath.row])
         return cell
     }
 }
