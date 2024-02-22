@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProductListDetailViewController: UIViewController {
     
-    @IBOutlet weak var productListDetailPageControl: UIPageControl!
-    @IBOutlet weak var productListDetailImageView: UIImageView!
+    @IBOutlet weak var productListCollectionView: UICollectionView!
     @IBOutlet weak var productListDetailTitleLabel: UILabel!
     @IBOutlet weak var productListDetailDescLabel: UILabel!
     @IBOutlet weak var productListDetailPriceLabel: UILabel!
@@ -19,8 +19,6 @@ class ProductListDetailViewController: UIViewController {
     
     var selectedProduct: Product?
     var images: [UIImage] = []
-    var pageViewController: UIPageViewController!
-    var currentIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +27,18 @@ class ProductListDetailViewController: UIViewController {
     
     
     private func setupUI() {
-        
         productListDetailAddCartBtn.backgroundColor = .gray
         productListDetailAddCartBtn.layer.cornerRadius = 10
         productListDetailTitleLabel.text = selectedProduct?.title
         productListDetailDescLabel.text = selectedProduct?.description
+        productListCollectionView.delegate = self
+        productListCollectionView.dataSource = self
+        setupPrice()
+        loadImages()
+    }
+    
+    
+    private func setupPrice() {
         let price = Double(selectedProduct?.price ?? 0)
         let discountPercentage = selectedProduct?.discountPercentage ?? 0
         let discountedPrice = price * (1 - (discountPercentage / 100))
@@ -48,9 +53,42 @@ class ProductListDetailViewController: UIViewController {
         navigationItem.title = selectedProduct?.title
     }
     
+    private func loadImages() {
+           guard let imageStrings = selectedProduct?.images else { return }
+           for imageString in imageStrings {
+               if let imageUrl = URL(string: imageString) {
+                   SDWebImageManager.shared.loadImage(with: imageUrl, options: .retryFailed, progress: nil) { [weak self] (image, _, _, _, _, _) in
+                       if let image = image {
+                           self?.images.append(image)
+                           self?.productListCollectionView.reloadData()
+                       }
+                   }
+               }
+           }
+       }
+    
     @IBAction func productListDetailAddCartBtnPressed(_ sender: UIButton) {
         
     }
+}
+
+
+extension ProductListDetailViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = productListCollectionView.dequeueReusableCell(withReuseIdentifier: "productListCollectionView", for: indexPath) as! ProductDetailCollectionViewCell
+        cell.productDetailImageView.image = images[indexPath.item]
+        return cell
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: productListCollectionView.frame.width, height: productListCollectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }

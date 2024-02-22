@@ -26,6 +26,7 @@
 		77A3EB782B86430400B519DC /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 77A3EB772B86430400B519DC /* SDWebImage */; };
 		B9DDAB022B873E0F004B80B7 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DDAB002B873E0F004B80B7 /* FavoriteCollectionViewCell.swift */; };
 		B9DDAB032B873E0F004B80B7 /* FavoriteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9DDAB012B873E0F004B80B7 /* FavoriteCollectionViewCell.xib */; };
+		B9DDAB052B876E87004B80B7 /* ProductDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DDAB042B876E87004B80B7 /* ProductDetailCollectionViewCell.swift */; };
 		B9FCCED12B87303A0031D6A2 /* ProductListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCCED02B87303A0031D6A2 /* ProductListDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		77A3EB732B863D9300B519DC /* ProductListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductListTableViewCell.xib; sourceTree = "<group>"; };
 		B9DDAB002B873E0F004B80B7 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		B9DDAB012B873E0F004B80B7 /* FavoriteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteCollectionViewCell.xib; sourceTree = "<group>"; };
+		B9DDAB042B876E87004B80B7 /* ProductDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		B9FCCED02B87303A0031D6A2 /* ProductListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +168,7 @@
 			children = (
 				77A3EB722B863D9300B519DC /* ProductListTableViewCell.swift */,
 				77A3EB732B863D9300B519DC /* ProductListTableViewCell.xib */,
+				B9DDAB042B876E87004B80B7 /* ProductDetailCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				B9DDAB022B873E0F004B80B7 /* FavoriteCollectionViewCell.swift in Sources */,
 				77A3EB6F2B8638F700B519DC /* BasketViewController.swift in Sources */,
 				77A3EB4B2B862EE300B519DC /* ProductListViewController.swift in Sources */,
+				B9DDAB052B876E87004B80B7 /* ProductDetailCollectionViewCell.swift in Sources */,
 				77A3EB662B8630FE00B519DC /* Extensions.swift in Sources */,
 				B9FCCED12B87303A0031D6A2 /* ProductListDetailViewController.swift in Sources */,
 				77A3EB472B862EE300B519DC /* AppDelegate.swift in Sources */,
