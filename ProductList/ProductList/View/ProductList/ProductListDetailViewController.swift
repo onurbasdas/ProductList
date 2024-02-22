@@ -20,6 +20,7 @@ class ProductListDetailViewController: UIViewController {
     @IBOutlet weak var productListDetailFavoriteBtn: UIBarButtonItem!
     var selectedProduct: Product?
     var images: [UIImage] = []
+    var isFavoriteToCart: Bool = false
     var isAddedToCart: Bool = false
     
     override func viewDidLoad() {
@@ -29,12 +30,21 @@ class ProductListDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if let data = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
            let previousFavoriteProducts = try? PropertyListDecoder().decode([Product].self, from: data),
            let selectedProduct = selectedProduct,
            previousFavoriteProducts.contains(where: { $0.id == selectedProduct.id }) {
-            isAddedToCart = true
+            isFavoriteToCart = true
             productListDetailFavoriteBtn.tintColor = .red
+        }
+        
+        if let data = UserDefaults.standard.value(forKey: "cartProducts") as? Data,
+           let previousFavoriteProducts = try? PropertyListDecoder().decode([Product].self, from: data),
+           let selectedProduct = selectedProduct,
+           previousFavoriteProducts.contains(where: { $0.id == selectedProduct.id }) {
+            isAddedToCart = true
+            productListDetailAddCartBtn.setTitle("REMOVE TO CART", for: .normal)
         }
     }
     
@@ -47,7 +57,7 @@ class ProductListDetailViewController: UIViewController {
         productListDetailAddCartBtn.layer.cornerRadius = 10
         productListDetailTitleLabel.text = selectedProduct?.title
         productListDetailDescLabel.text = selectedProduct?.description
-
+        
         setupPrice()
         loadImages()
     }
@@ -83,12 +93,24 @@ class ProductListDetailViewController: UIViewController {
     }
     
     @IBAction func productListDetailAddCartBtnPressed(_ sender: UIButton) {
+        isAddedToCart.toggle()
+        let buttonText = isAddedToCart ? "REMOVE FROM CART": "ADD TO CART"
+        productListDetailAddCartBtn.setTitle(buttonText, for: .normal)
         
+        if let selectedProduct = selectedProduct {
+            if isAddedToCart {
+                // Sepete ekleme işlemi
+                CartManager.shared.addProductToCart(selectedProduct)
+            } else {
+                // Sepetten çıkarma işlemi
+                CartManager.shared.removeProductFromCart(selectedProduct)
+            }
+        }
     }
     
     @IBAction func productListFavoriteBtnPressed(_ sender: UIBarButtonItem) {
-        isAddedToCart.toggle()
-        let buttonColor = isAddedToCart ? UIColor.red : UIColor.black
+        isFavoriteToCart.toggle()
+        let buttonColor = isFavoriteToCart ? UIColor.red : UIColor.black
         sender.tintColor = buttonColor
         if let selectedProduct = selectedProduct {
             FavoriteManager.shared.toggleFavorite(selectedProduct)
@@ -104,11 +126,11 @@ extension ProductListDetailViewController: UICollectionViewDelegateFlowLayout, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productListCollectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailSliderCollectionViewCell.identifier, for: indexPath) as! ProductDetailSliderCollectionViewCell
-        cell.productDetailSliderImageView.image = images[indexPath.item] 
+        cell.productDetailSliderImageView.image = images[indexPath.item]
         let discountPercentage = selectedProduct?.discountPercentage ?? 0.0
         let formattedDiscount = String(format: "%.0f", discountPercentage)
         cell.productDetailSliderPriceLabel.text = "%\(formattedDiscount)"
-
+        
         return cell
     }
     

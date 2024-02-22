@@ -8,7 +8,7 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
-
+    
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     
     var favoriteProducts: [Product] = []
@@ -32,13 +32,13 @@ class FavoriteViewController: UIViewController {
     }
     
     func loadFavoriteProducts() {
-          if let encodedData = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
-             let storedProducts = try? PropertyListDecoder().decode([Product].self, from: encodedData) {
-              favoriteProducts = storedProducts
-          }
-          favoriteCollectionView.reloadData()
-      }
-
+        if let encodedData = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
+           let storedProducts = try? PropertyListDecoder().decode([Product].self, from: encodedData) {
+            favoriteProducts = storedProducts
+        }
+        favoriteCollectionView.reloadData()
+    }
+    
 }
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
@@ -49,7 +49,18 @@ extension FavoriteViewController: UICollectionViewDelegateFlowLayout, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as! FavoriteCollectionViewCell
         cell.bind(data: favoriteProducts[indexPath.item])
+        cell.delegate = self
         return cell
     }
     
+}
+
+extension FavoriteViewController: FavoriteCollectionViewCellDelegate {
+    func didSelectFavorite(cell: UICollectionViewCell) {
+        if let indexPath = favoriteCollectionView.indexPath(for: cell) {
+            let selectedProduct = favoriteProducts[indexPath.row]
+            FavoriteManager.shared.toggleFavorite(selectedProduct)
+            favoriteCollectionView.reloadData()
+        }
+    }
 }

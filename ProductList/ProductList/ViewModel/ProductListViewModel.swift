@@ -37,10 +37,21 @@ class ProductListViewModel {
            }
        }
     
-    func fetchProductList(completion: @escaping (Result<ProductListModel, NetworkError>) -> Void) {
+    func fetchProductList(completion: @escaping (Result<Void, NetworkError>) -> Void) {
         let urlString = Constants.apiURL
-        NetworkManager.shared.fetchData(from: urlString, method: .get) { (result: Result<ProductListModel, NetworkError>) in
-            completion(result)
+        NetworkManager.shared.fetchData(from: urlString, method: .get) { [weak self] (result: Result<ProductListModel, NetworkError>) in
+            switch result {
+            case .success(let productList):
+                if let products = productList.products {
+                    self?.products = products
+                    self?.filteredProducts = products
+                    completion(.success(()))
+                } else {
+                    completion(.failure(.invalidURL))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
     

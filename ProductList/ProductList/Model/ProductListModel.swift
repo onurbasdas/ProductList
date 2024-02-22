@@ -21,4 +21,5 @@ struct Product: Codable {
     var brand, category: String?
     var thumbnail: String?
     var images: [String]?
+    var quantity: Int? // Bu satırı ekleyin
 }

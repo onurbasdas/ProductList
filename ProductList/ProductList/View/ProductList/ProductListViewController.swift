@@ -65,22 +65,18 @@ class ProductListViewController: UIViewController {
     func fetchData() {
         viewModel.fetchProductList { [weak self] result in
             switch result {
-            case .success(let productList):
-                self?.handleSuccess(productList: productList)
+            case .success:
+                self?.handleSuccess()
             case .failure(let error):
                 self?.handleFailure(error: error)
             }
         }
     }
-    
-    func handleSuccess(productList: ProductListModel) {
-        if let products = productList.products {
-            self.viewModel.products = products
-            self.viewModel.filteredProducts = products
-            DispatchQueue.main.async { [weak self] in
-                self?.configureLabel()
-                self?.productListTableView.reloadData()
-            }
+
+    func handleSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.configureLabel()
+            self?.productListTableView.reloadData()
         }
     }
     

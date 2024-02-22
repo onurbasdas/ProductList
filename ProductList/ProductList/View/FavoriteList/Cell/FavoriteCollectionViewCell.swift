@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FavoriteCollectionViewCellDelegate: AnyObject {
+    func didSelectFavorite(cell: UICollectionViewCell)
+}
+
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "FavoriteCollectionViewCell"
@@ -22,11 +26,12 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var favoriteCellBtn: UIButton!
     @IBOutlet weak var favoriteAddCartBtn: UIButton!
     
+    weak var delegate: FavoriteCollectionViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         favoriteBgView.layer.cornerRadius = 10
         favoriteImageView.layer.cornerRadius = 10
-        favoriteCellBtn.backgroundColor = .white
         favoriteCellBtn.layer.cornerRadius = 10
     }
 
@@ -38,7 +43,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func favoriteCellBtnPressed(_ sender: UIButton) {
-        
+        self.delegate?.didSelectFavorite(cell: self)
     }
     
     @IBAction func favoriteAddCartBtnPressed(_ sender: UIButton) {

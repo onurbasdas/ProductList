@@ -312,10 +312,25 @@
                     <view key="view" contentMode="scaleToFill" id="Vct-VG-IEZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WSj-Ie-VmT">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="qD9-cr-dV3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="WSj-Ie-VmT" firstAttribute="top" secondItem="qD9-cr-dV3" secondAttribute="top" id="ERK-s9-GXX"/>
+                            <constraint firstItem="qD9-cr-dV3" firstAttribute="trailing" secondItem="WSj-Ie-VmT" secondAttribute="trailing" id="egV-rR-zp8"/>
+                            <constraint firstItem="qD9-cr-dV3" firstAttribute="bottom" secondItem="WSj-Ie-VmT" secondAttribute="bottom" id="g2w-YT-0MO"/>
+                            <constraint firstItem="WSj-Ie-VmT" firstAttribute="leading" secondItem="qD9-cr-dV3" secondAttribute="leading" id="viL-ve-yfc"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tfv-Qh-PIh"/>
+                    <connections>
+                        <outlet property="basketTableView" destination="WSj-Ie-VmT" id="A7d-n7-weS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oqa-yR-bDc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
