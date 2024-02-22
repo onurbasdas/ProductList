@@ -45,12 +45,12 @@ class ProductListTableViewCell: UITableViewCell {
         let discountPercentage = data.discountPercentage ?? 0
         let discountedPrice = price * (1 - (discountPercentage / 100))
         
-        let priceString = String(format: "%.2f", price) // Fiyatı formatla
+        let priceString = String(format: "%.2f", price)
         let attributedString = NSMutableAttributedString(string: "\(priceString) TL")
         attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
         productPriceLabel.attributedText = attributedString
         
-        let discountedPriceString = String(format: "%.2f", discountedPrice) // İndirimli fiyatı formatla
+        let discountedPriceString = String(format: "%.2f", discountedPrice)
         productDiscountPriceLabel.text = "\(discountedPriceString) TL"
     }
 
