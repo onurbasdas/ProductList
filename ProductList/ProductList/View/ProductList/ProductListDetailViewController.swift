@@ -17,22 +17,37 @@ class ProductListDetailViewController: UIViewController {
     @IBOutlet weak var productListDetailDiscountPriceLabel: UILabel!
     @IBOutlet weak var productListDetailAddCartBtn: UIButton!
     
+    @IBOutlet weak var productListDetailFavoriteBtn: UIBarButtonItem!
     var selectedProduct: Product?
     var images: [UIImage] = []
+    var isAddedToCart: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let data = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
+           let previousFavoriteProducts = try? PropertyListDecoder().decode([Product].self, from: data),
+           let selectedProduct = selectedProduct,
+           previousFavoriteProducts.contains(where: { $0.id == selectedProduct.id }) {
+            isAddedToCart = true
+            productListDetailFavoriteBtn.tintColor = .red
+        }
+    }
+    
     
     private func setupUI() {
+        productListCollectionView.delegate = self
+        productListCollectionView.dataSource = self
+        productListCollectionView.register(ProductDetailSliderCollectionViewCell.nib(), forCellWithReuseIdentifier: ProductDetailSliderCollectionViewCell.identifier)
         productListDetailAddCartBtn.backgroundColor = .gray
         productListDetailAddCartBtn.layer.cornerRadius = 10
         productListDetailTitleLabel.text = selectedProduct?.title
         productListDetailDescLabel.text = selectedProduct?.description
-        productListCollectionView.delegate = self
-        productListCollectionView.dataSource = self
+
         setupPrice()
         loadImages()
     }
@@ -54,21 +69,30 @@ class ProductListDetailViewController: UIViewController {
     }
     
     private func loadImages() {
-           guard let imageStrings = selectedProduct?.images else { return }
-           for imageString in imageStrings {
-               if let imageUrl = URL(string: imageString) {
-                   SDWebImageManager.shared.loadImage(with: imageUrl, options: .retryFailed, progress: nil) { [weak self] (image, _, _, _, _, _) in
-                       if let image = image {
-                           self?.images.append(image)
-                           self?.productListCollectionView.reloadData()
-                       }
-                   }
-               }
-           }
-       }
+        guard let imageStrings = selectedProduct?.images else { return }
+        for imageString in imageStrings {
+            if let imageUrl = URL(string: imageString) {
+                SDWebImageManager.shared.loadImage(with: imageUrl, options: .retryFailed, progress: nil) { [weak self] (image, _, _, _, _, _) in
+                    if let image = image {
+                        self?.images.append(image)
+                        self?.productListCollectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
     
     @IBAction func productListDetailAddCartBtnPressed(_ sender: UIButton) {
         
+    }
+    
+    @IBAction func productListFavoriteBtnPressed(_ sender: UIBarButtonItem) {
+        isAddedToCart.toggle()
+        let buttonColor = isAddedToCart ? UIColor.red : UIColor.black
+        sender.tintColor = buttonColor
+        if let selectedProduct = selectedProduct {
+            FavoriteManager.shared.toggleFavorite(selectedProduct)
+        }
     }
 }
 
@@ -79,8 +103,12 @@ extension ProductListDetailViewController: UICollectionViewDelegateFlowLayout, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = productListCollectionView.dequeueReusableCell(withReuseIdentifier: "productListCollectionView", for: indexPath) as! ProductDetailCollectionViewCell
-        cell.productDetailImageView.image = images[indexPath.item]
+        let cell = productListCollectionView.dequeueReusableCell(withReuseIdentifier: ProductDetailSliderCollectionViewCell.identifier, for: indexPath) as! ProductDetailSliderCollectionViewCell
+        cell.productDetailSliderImageView.image = images[indexPath.item] 
+        let discountPercentage = selectedProduct?.discountPercentage ?? 0.0
+        let formattedDiscount = String(format: "%.0f", discountPercentage)
+        cell.productDetailSliderPriceLabel.text = "%\(formattedDiscount)"
+
         return cell
     }
     

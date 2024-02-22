@@ -31,6 +31,7 @@ class ProductListViewController: UIViewController {
         productListTableView.delegate = self
         productListTableView.register(ProductListTableViewCell.nib(), forCellReuseIdentifier: ProductListTableViewCell.identifier)
         productListSearchBar.delegate = self
+        configureButton()
         fetchData()
     }
     
@@ -49,6 +50,15 @@ class ProductListViewController: UIViewController {
         
         attributedString.addAttributes(normalAttributes, range: NSRange(location: 0, length: text.count))
         productListTitleLabel.attributedText = attributedString
+    }
+    
+    private func configureButton() {
+        productListFilterBtn.layer.borderWidth = 1
+        productListFilterBtn.layer.borderColor = UIColor.gray.cgColor
+        productListFilterBtn.layer.cornerRadius = 8
+        productListSortBtn.layer.borderWidth = 1
+        productListSortBtn.layer.borderColor = UIColor.gray.cgColor
+        productListSortBtn.layer.cornerRadius = 8
     }
     
     func fetchData() {
