@@ -7,13 +7,11 @@
 
 import Foundation
 
-// MARK: - Welcome
 struct ProductListModel: Codable {
     var products: [Product]?
     var total, skip, limit: Int?
 }
 
-// MARK: - Product
 struct Product: Codable {
     var id: Int?
     var title, description: String?

@@ -120,6 +120,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="productListFilterBtn" destination="Bgr-6i-1YO" id="Obw-Qe-K6n"/>
+                        <outlet property="productListSearchBar" destination="9hF-mx-w7r" id="ddk-V0-Zdp"/>
                         <outlet property="productListSortBtn" destination="cH2-Oc-4DS" id="vjG-9e-62g"/>
                         <outlet property="productListTableView" destination="3n6-rT-LrI" id="OBv-Jb-P2o"/>
                         <outlet property="productListTitleLabel" destination="6Y7-J9-EwW" id="1OF-RH-zvx"/>
