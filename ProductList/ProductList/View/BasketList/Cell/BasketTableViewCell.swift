@@ -30,32 +30,64 @@ class BasketTableViewCell: UITableViewCell {
     @IBOutlet weak var basketTotalLabel: UILabel!
     @IBOutlet weak var basketAddProductBtn: UIButton!
     
-    var product: CartProduct?
+    // MARK: - Properties
+    
+    private var product: CartProduct?
+    
     var quantity: Int = 1 {
         didSet {
             basketTotalLabel.text = "\(quantity)"
+            basketRemoveProductBtn.tintColor = (quantity == 1) ? .gray : UIColor(named: "color3")
         }
     }
+    
     weak var delegate: BasketTableViewCellDelegate?
+    
+    // MARK: - Lifecycle Methods
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        basketBgView.layer.cornerRadius = 10
-        if quantity == 1 {
-            basketRemoveProductBtn.tintColor = .gray
-        } else {
-            basketRemoveProductBtn.tintColor = UIColor(named: "color3")
-        }
+        setupUI()
+        updateRemoveButtonState()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
+    // MARK: - Public Methods
     
     func bind(data: CartProduct) {
         self.product = data
-        basketImageView.sd_setImage(with: URL(string: data.thumbnail ))
+        setupImageView(with: data.thumbnail)
+        setupLabels(with: data)
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction private func basketRemoveProductBtnPressed(_ sender: UIButton) {
+        if quantity > 1 {
+            quantity -= 1
+            updateCartQuantity()
+        }
+    }
+    
+    @IBAction private func basketAddProductBtnPressed(_ sender: UIButton) {
+        quantity += 1
+        updateCartQuantity()
+    }
+    
+    @IBAction private func basketDeleteProductBtnPressed(_ sender: UIButton) {
+        self.delegate?.didRemoveBasket(cell: self)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupUI() {
+        basketBgView.layer.cornerRadius = 10
+    }
+    
+    private func setupImageView(with imageURL: String?) {
+        basketImageView.sd_setImage(with: URL(string: imageURL ?? ""))
+    }
+    
+    private func setupLabels(with data: CartProduct) {
         basketTitleLabel.text = data.title
         basketTotalLabel.text = "\(data.quantity)"
         quantity = data.quantity
@@ -64,31 +96,25 @@ class BasketTableViewCell: UITableViewCell {
         let discountPercentage = data.discountPercentage
         let discountedPrice = price * (1 - (discountPercentage / 100))
         
-        let priceString = String(format: "%.2f", price)
-        let attributedString = NSMutableAttributedString(string: "\(priceString) TL")
+        setupPriceLabel(with: price, discountPercentage: discountPercentage)
+        setupDiscountPriceLabel(with: discountedPrice)
+    }
+    
+    private func setupPriceLabel(with price: Double, discountPercentage: Double) {
+        let priceString = String(format: "%.2f TL", price)
+        let attributedString = NSMutableAttributedString(string: priceString)
         attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
         basketPriceLabel.attributedText = attributedString
-        
-        let discountedPriceString = String(format: "%.2f", discountedPrice)
-        basketDiscountPriceLabel.text = "\(discountedPriceString) TL"
     }
     
-    @IBAction func basketRemoveProductBtnPressed(_ sender: UIButton) {
-        if quantity > 1 {
-            quantity -= 1
-            updateCartQuantity()
-        } else {
-            basketRemoveProductBtn.tintColor = .gray
-        }
+    private func setupDiscountPriceLabel(with discountedPrice: Double) {
+        let discountedPriceString = String(format: "%.2f TL", discountedPrice)
+        basketDiscountPriceLabel.text = discountedPriceString
     }
     
-    @IBAction func basketAddProductBtnPressed(_ sender: UIButton) {
-        quantity += 1
-        updateCartQuantity()
-    }
-    
-    @IBAction func basketDeleteProductBtnPressed(_ sender: UIButton) {
-        self.delegate?.didRemoveBasket(cell: self)
+    private func updateRemoveButtonState() {
+        basketRemoveProductBtn.isEnabled = (quantity > 1)
+        basketRemoveProductBtn.tintColor = basketRemoveProductBtn.isEnabled ? UIColor(named: "color3") : .gray
     }
     
     private func updateCartQuantity() {
@@ -99,5 +125,6 @@ class BasketTableViewCell: UITableViewCell {
             realm.add(product, update: .modified)
             delegate?.didUpdateQuantity()
         }
+        updateRemoveButtonState()
     }
 }
