@@ -27,6 +27,7 @@
 		B9525EA02B888A5500B9E045 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = B9525E9F2B888A5500B9E045 /* Realm */; };
 		B9525EA22B888A5500B9E045 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9525EA12B888A5500B9E045 /* RealmSwift */; };
 		B9525EA62B888A7100B9E045 /* CartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9525EA52B888A7100B9E045 /* CartProduct.swift */; };
+		B9525EA82B889F4700B9E045 /* FilterAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9525EA72B889F4700B9E045 /* FilterAlertViewController.swift */; };
 		B975A5E52B87C61C000FF9C9 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B975A5E32B87C61C000FF9C9 /* BasketTableViewCell.swift */; };
 		B975A5E62B87C61C000FF9C9 /* BasketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B975A5E42B87C61C000FF9C9 /* BasketTableViewCell.xib */; };
 		B975A5EA2B87D060000FF9C9 /* CartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B975A5E92B87D060000FF9C9 /* CartManager.swift */; };
@@ -59,6 +60,7 @@
 		77A3EB722B863D9300B519DC /* ProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListTableViewCell.swift; sourceTree = "<group>"; };
 		77A3EB732B863D9300B519DC /* ProductListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductListTableViewCell.xib; sourceTree = "<group>"; };
 		B9525EA52B888A7100B9E045 /* CartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProduct.swift; sourceTree = "<group>"; };
+		B9525EA72B889F4700B9E045 /* FilterAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAlertViewController.swift; sourceTree = "<group>"; };
 		B975A5E32B87C61C000FF9C9 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		B975A5E42B87C61C000FF9C9 /* BasketTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasketTableViewCell.xib; sourceTree = "<group>"; };
 		B975A5E92B87D060000FF9C9 /* CartManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartManager.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				77A3EB712B863D7F00B519DC /* Cell */,
+				B9525EA72B889F4700B9E045 /* FilterAlertViewController.swift */,
 				77A3EB4A2B862EE300B519DC /* ProductListViewController.swift */,
 				B9FCCED02B87303A0031D6A2 /* ProductListDetailViewController.swift */,
 			);
@@ -332,6 +335,7 @@
 				77A3EB6D2B8638F100B519DC /* FavoriteViewController.swift in Sources */,
 				77A3EB632B8630E700B519DC /* ProductListViewModel.swift in Sources */,
 				77A3EB492B862EE300B519DC /* SceneDelegate.swift in Sources */,
+				B9525EA82B889F4700B9E045 /* FilterAlertViewController.swift in Sources */,
 				77A3EB612B8630DE00B519DC /* ProductListModel.swift in Sources */,
 				77A3EB6B2B86371900B519DC /* Constants.swift in Sources */,
 				B975A5EC2B87E9A9000FF9C9 /* CheckoutViewController.swift in Sources */,

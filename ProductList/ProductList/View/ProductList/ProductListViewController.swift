@@ -17,6 +17,7 @@ class ProductListViewController: UIViewController {
     
     let viewModel = ProductListViewModel()
     var isAscendingOrder = true
+    var selectedBrands: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,7 @@ class ProductListViewController: UIViewController {
         
         productListTitleLabel.attributedText = attributedString
     }
-
+    
     
     private func configureButton() {
         productListFilterBtn.layer.borderWidth = 1
@@ -72,7 +73,7 @@ class ProductListViewController: UIViewController {
             }
         }
     }
-
+    
     func handleSuccess() {
         DispatchQueue.main.async { [weak self] in
             self?.configureLabel()
@@ -85,7 +86,21 @@ class ProductListViewController: UIViewController {
     }
     
     @IBAction func productListFilterBtnPressed(_ sender: UIButton) {
-        
+        showFilterAlert()
+    }
+    
+    private func showFilterAlert() {
+        let filterAlert = FilterAlertController(title: "Filter Brands", message: nil, preferredStyle: .alert)
+        filterAlert.filterDelegate = self
+
+        filterAlert.addRemoveAllAction()
+
+        for brand in viewModel.brandList {
+            let isSelected = selectedBrands.contains(brand)
+            filterAlert.addAction(withBrand: brand, isSelected: isSelected)
+        }
+
+        present(filterAlert, animated: true, completion: nil)
     }
     
     @IBAction func productListSortBtnPressed(_ sender: UIButton) {
@@ -118,5 +133,19 @@ extension ProductListViewController: UISearchBarDelegate {
         viewModel.searchProducts(searchText: searchText)
         productListTableView.reloadData()
         self.configureLabel()
+    }
+}
+
+extension ProductListViewController: FilterAlertDelegate {
+    func didSelectBrands(_ brands: [String]) {
+        selectedBrands = brands
+        viewModel.filterProductsByBrands(brands: selectedBrands)
+        productListTableView.reloadData()
+    }
+
+    func removeAllBrands() {
+        selectedBrands.removeAll()
+        viewModel.filterProductsByBrands(brands: selectedBrands)
+        productListTableView.reloadData()
     }
 }
