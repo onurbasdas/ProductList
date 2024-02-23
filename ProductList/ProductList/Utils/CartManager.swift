@@ -41,4 +41,9 @@ class CartManager {
     func isProductInCart(_ product: CartProduct) -> Bool {
         return realm.object(ofType: CartProduct.self, forPrimaryKey: product.id) != nil
     }
+    
+    func totalProductsInCart() -> Int {
+        let cartProducts = realm.objects(CartProduct.self)
+        return cartProducts.reduce(0) { $0 + $1.quantity }
+    }
 }

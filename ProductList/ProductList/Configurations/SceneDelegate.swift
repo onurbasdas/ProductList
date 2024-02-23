@@ -37,9 +37,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        if let tabBarController = window?.rootViewController as? UITabBarController {
+            let viewModel = BasketViewModel()
+            let basketItemCount = viewModel.numberOfProducts
+            if basketItemCount > 0 {
+                tabBarController.tabBar.items?[2].badgeValue = "\(basketItemCount)"
+            } else {
+                tabBarController.tabBar.items?[2].badgeValue = nil
+            }
+        }
     }
+
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.

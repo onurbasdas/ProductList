@@ -119,7 +119,20 @@ class ProductListDetailViewController: UIViewController {
                 CartManager.shared.removeProductFromCart(cartProduct)
             }
         }
+        updateTabBarBadge()
     }
+    
+    private func updateTabBarBadge() {
+        let totalItems = CartManager.shared.totalProductsInCart()
+        DispatchQueue.main.async {
+            if totalItems > 0 {
+                self.tabBarController?.tabBar.items?[2].badgeValue = "\(totalItems)"
+            } else {
+                self.tabBarController?.tabBar.items?[2].badgeValue = nil
+            }
+        }
+    }
+
     
     @IBAction func productListFavoriteBtnPressed(_ sender: UIBarButtonItem) {
         isFavoriteToCart.toggle()

@@ -46,12 +46,23 @@ class BasketViewController: UIViewController {
         }
     }
     
-    private func updateBasketInfo() {
+    func updateBasketInfo() {
         let basketInfo = viewModel.updateBasketInfo()
         basketPriceLabel.text = basketInfo.subtotal
         basketDiscountLabel.text = basketInfo.discount
         basketTotalLabel.text = basketInfo.total
+        updateTabBarBadge()
     }
+    
+    private func updateTabBarBadge() {
+        let totalItems = viewModel.numberOfProducts
+        if totalItems > 0 {
+            tabBarController?.tabBar.items?[2].badgeValue = "\(totalItems)"
+        } else {
+            tabBarController?.tabBar.items?[2].badgeValue = nil
+        }
+    }
+    
     
     @IBAction func basketCheckOutBtnPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toPaySegue", sender: nil)
