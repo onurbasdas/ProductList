@@ -33,6 +33,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         favoriteBgView.layer.cornerRadius = 10
         favoriteImageView.layer.cornerRadius = 10
         favoriteCellBtn.layer.cornerRadius = 10
+        favoriteAddCartBtn.layer.cornerRadius = 15
     }
 
     func bind(data: Product) {

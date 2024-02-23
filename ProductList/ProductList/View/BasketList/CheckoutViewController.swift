@@ -35,15 +35,9 @@ class CheckoutViewController: UIViewController,UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
-        updatePlaceholder(textField, withText: "Enter \(textField.placeholder ?? "")", color: .black)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        validateTextField(textField)
     }
     
     @IBAction func checkoutPayBtnPressed(_ sender: UIButton) {
-     
         if checkoutNameTf.text == "" || checkoutEmailTf.text == "" || checkoutPhoneTf.text == "" {
             validateTextField(checkoutNameTf)
             validateTextField(checkoutEmailTf)
@@ -62,15 +56,9 @@ class CheckoutViewController: UIViewController,UITextFieldDelegate {
         if textField.text?.isEmpty ?? true {
             textField.layer.borderColor = UIColor.red.cgColor
             textField.layer.borderWidth = 1
-            updatePlaceholder(textField, withText: "\(textField.placeholder ?? "")", color: .red)
         } else {
             textField.layer.borderColor = UIColor.black.cgColor
             textField.layer.borderWidth = 0
-            updatePlaceholder(textField, withText: "Enter \(textField.placeholder ?? "")", color: .black)
         }
-    }
-    
-    private func updatePlaceholder(_ textField: UITextField, withText text: String, color: UIColor) {
-        textField.attributedPlaceholder = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: color])
     }
 }

@@ -26,7 +26,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Jp-9F-UoS">
                         <rect key="frame" x="20" y="15" width="346" height="60"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-jl-ET6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-jl-ET6">
                                 <rect key="frame" x="10" y="10" width="70" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="aeD-6X-VfJ"/>
@@ -34,12 +34,12 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FN-Io-kls">
-                                <rect key="frame" x="85" y="15" width="32" height="14.666666666666664"/>
+                                <rect key="frame" x="85" y="15" width="121" height="14.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-WI-xHK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-WI-xHK">
                                 <rect key="frame" x="85" y="30.333333333333339" width="32" height="14.666666666666668"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="12"/>
                                 <nil key="textColor"/>
@@ -102,7 +102,7 @@
                                     <constraint firstAttribute="height" constant="20" id="ZqQ-xZ-L3j"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="290-CE-z8D">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="290-CE-z8D">
                                 <rect key="frame" x="122" y="30.333333333333339" width="94" height="14.666666666666668"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
                                 <color key="textColor" name="color3"/>
@@ -119,12 +119,12 @@
                             <constraint firstItem="290-CE-z8D" firstAttribute="top" secondItem="PYS-WI-xHK" secondAttribute="top" id="OgD-86-jHz"/>
                             <constraint firstItem="PYS-WI-xHK" firstAttribute="bottom" secondItem="E2a-jl-ET6" secondAttribute="bottom" constant="-5" id="RC8-J5-AJz"/>
                             <constraint firstItem="msH-NO-Ds2" firstAttribute="centerY" secondItem="E2a-jl-ET6" secondAttribute="centerY" id="UaJ-zz-Ve5"/>
+                            <constraint firstItem="msH-NO-Ds2" firstAttribute="leading" secondItem="3FN-Io-kls" secondAttribute="trailing" constant="20" id="VyU-qj-oqj"/>
                             <constraint firstAttribute="width" constant="346" id="YW1-2N-PlQ"/>
                             <constraint firstItem="3FN-Io-kls" firstAttribute="top" secondItem="E2a-jl-ET6" secondAttribute="top" constant="5" id="fCo-in-JiL"/>
                             <constraint firstItem="290-CE-z8D" firstAttribute="leading" secondItem="PYS-WI-xHK" secondAttribute="trailing" constant="5" id="hv8-Rd-5DI"/>
                             <constraint firstItem="E2a-jl-ET6" firstAttribute="top" secondItem="0Jp-9F-UoS" secondAttribute="top" constant="10" id="lbe-2l-iXo"/>
                             <constraint firstItem="PYS-WI-xHK" firstAttribute="leading" secondItem="3FN-Io-kls" secondAttribute="leading" id="quR-8V-USw"/>
-                            <constraint firstItem="3FN-Io-kls" firstAttribute="trailing" secondItem="PYS-WI-xHK" secondAttribute="trailing" id="sga-69-uNM"/>
                             <constraint firstItem="290-CE-z8D" firstAttribute="bottom" secondItem="PYS-WI-xHK" secondAttribute="bottom" id="u3Q-BK-5BJ"/>
                         </constraints>
                     </view>

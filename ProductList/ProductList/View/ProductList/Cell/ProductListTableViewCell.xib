@@ -32,26 +32,26 @@
                                     <constraint firstAttribute="width" constant="70" id="tIx-9Z-1f2"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqb-dM-Mor">
-                                <rect key="frame" x="82" y="32.666666666666664" width="211" height="12.333333333333336"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqb-dM-Mor">
+                                <rect key="frame" x="82" y="32.666666666666664" width="31" height="12.333333333333336"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="10"/>
                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dld-5e-zD7">
-                                <rect key="frame" x="303" y="10" width="31" height="14.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dld-5e-zD7">
+                                <rect key="frame" x="123" y="10" width="211" height="14"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
                                 <color key="textColor" name="color5"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zk5-DQ-a7t">
-                                <rect key="frame" x="303" y="35.333333333333336" width="31" height="14.666666666666664"/>
+                                <rect key="frame" x="123" y="36" width="211" height="14"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
                                 <color key="textColor" name="color3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDK-CS-bEI">
-                                <rect key="frame" x="82" y="15" width="211" height="14.666666666666664"/>
+                                <rect key="frame" x="82" y="15" width="31" height="14"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
                                 <color key="textColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                             <constraint firstItem="Kqb-dM-Mor" firstAttribute="bottom" secondItem="ffo-JS-03j" secondAttribute="bottom" constant="-5" id="Q0j-ei-bTQ"/>
                             <constraint firstAttribute="height" constant="60" id="WFL-w3-iV1"/>
                             <constraint firstItem="Zk5-DQ-a7t" firstAttribute="leading" secondItem="Dld-5e-zD7" secondAttribute="leading" id="aFO-Nk-9wv"/>
-                            <constraint firstItem="Dld-5e-zD7" firstAttribute="leading" secondItem="QDK-CS-bEI" secondAttribute="trailing" constant="10" id="aGj-yh-A5f"/>
+                            <constraint firstItem="Dld-5e-zD7" firstAttribute="leading" secondItem="QDK-CS-bEI" secondAttribute="trailing" constant="10" id="l55-DZ-peZ"/>
                             <constraint firstItem="Zk5-DQ-a7t" firstAttribute="trailing" secondItem="Dld-5e-zD7" secondAttribute="trailing" id="msi-HI-bFp"/>
                             <constraint firstItem="ffo-JS-03j" firstAttribute="centerY" secondItem="dwm-f5-kwC" secondAttribute="centerY" id="tEe-06-bsb"/>
                             <constraint firstAttribute="trailing" secondItem="Dld-5e-zD7" secondAttribute="trailing" constant="12" id="tdI-9Z-KUx"/>
@@ -93,7 +93,7 @@
                 <outlet property="productPriceLabel" destination="Zk5-DQ-a7t" id="GBO-Vr-npq"/>
                 <outlet property="productTitleLabel" destination="QDK-CS-bEI" id="Ej2-Ro-xfi"/>
             </connections>
-            <point key="canvasLocation" x="47" y="-12"/>
+            <point key="canvasLocation" x="45.801526717557252" y="-12.67605633802817"/>
         </tableViewCell>
     </objects>
     <resources>
