@@ -10,6 +10,10 @@ import UIKit
 class BasketViewController: UIViewController {
     
     @IBOutlet weak var basketTableView: UITableView!
+    @IBOutlet weak var basketPriceLabel: UILabel!
+    @IBOutlet weak var basketDiscountLabel: UILabel!
+    @IBOutlet weak var basketTotalLabel: UILabel!
+    @IBOutlet weak var basketCheckOutBtn: UIButton!
     
     var basketProducts: [Product] = []
     
@@ -21,13 +25,15 @@ class BasketViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadCartProducts()
+        updateBasketInfo()
     }
     
     func setupUI() {
-        self.navigationItem.title = "BASKET"
+        self.navigationItem.title = Constants.basketTitle
         basketTableView.delegate = self
         basketTableView.dataSource = self
         basketTableView.register(BasketTableViewCell.nib(), forCellReuseIdentifier: BasketTableViewCell.identifier)
+        basketCheckOutBtn.layer.cornerRadius = 10
     }
     
     func loadCartProducts() {
@@ -36,6 +42,23 @@ class BasketViewController: UIViewController {
             basketProducts = storedProducts
         }
         basketTableView.reloadData()
+    }
+    
+    func updateBasketInfo() {
+        // Sepetteki ürünlerin toplam fiyatını, indirimli toplam fiyatını ve indirimi hesapla
+        let totalPrice = basketProducts.reduce(0) { $0 + ($1.price ?? 0) }
+        let totalDiscountedPrice = basketProducts.reduce(0) { $0 + Int(($1.discountPercentage ?? 0)) * ($1.quantity ?? 1) }
+        let totalDiscount = totalPrice - totalDiscountedPrice
+        
+        // Fiyat etiketlerini güncelle
+        basketPriceLabel.text = "\(totalPrice) TL"
+        basketDiscountLabel.text = "-\(totalDiscountedPrice) TL"
+        basketTotalLabel.text = "\(totalDiscount) TL"
+    }
+    
+    
+    @IBAction func basketCheckOutBtnPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "toPaySegue", sender: nil)
     }
     
 }

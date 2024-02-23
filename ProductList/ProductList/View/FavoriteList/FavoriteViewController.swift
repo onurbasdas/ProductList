@@ -25,7 +25,7 @@ class FavoriteViewController: UIViewController {
     
     
     func setupUI() {
-        navigationItem.title = "FAVORITE"
+        navigationItem.title = Constants.favoriteTitle
         favoriteCollectionView.delegate = self
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.nib(), forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
@@ -60,6 +60,8 @@ extension FavoriteViewController: FavoriteCollectionViewCellDelegate {
         if let indexPath = favoriteCollectionView.indexPath(for: cell) {
             let selectedProduct = favoriteProducts[indexPath.row]
             FavoriteManager.shared.toggleFavorite(selectedProduct)
+            favoriteProducts.remove(at: indexPath.row)
+            favoriteCollectionView.deleteItems(at: [indexPath])
             favoriteCollectionView.reloadData()
         }
     }

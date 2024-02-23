@@ -15,6 +15,7 @@ class BasketTableViewCell: UITableViewCell {
         return UINib(nibName: "BasketTableViewCell", bundle: nil)
     }
     
+    @IBOutlet weak var basketBgView: UIView!
     @IBOutlet weak var basketImageView: UIImageView!
     @IBOutlet weak var basketTitleLabel: UILabel!
     @IBOutlet weak var basketDescLabel: UILabel!
@@ -23,7 +24,7 @@ class BasketTableViewCell: UITableViewCell {
     @IBOutlet weak var basketAddProductBtn: UIButton!
     
     var product: Product?
-    var quantity: Int = 0 {
+    var quantity: Int = 1 {
         didSet {
             basketTotalLabel.text = "\(quantity)"
         }
@@ -31,7 +32,12 @@ class BasketTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        basketBgView.layer.cornerRadius = 10
+        if quantity == 1 {
+            basketRemoveProductBtn.tintColor = .gray
+        } else {
+            basketRemoveProductBtn.tintColor = UIColor(named: "color3")
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -46,8 +52,10 @@ class BasketTableViewCell: UITableViewCell {
     }
     
     @IBAction func basketRemoveProductBtnPressed(_ sender: UIButton) {
-        if quantity > 0 {
+        if quantity > 1 {
             quantity -= 1
+        } else {
+            basketRemoveProductBtn.tintColor = .gray
         }
     }
     
