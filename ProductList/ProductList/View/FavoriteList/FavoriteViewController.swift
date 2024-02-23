@@ -11,7 +11,7 @@ class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var favoriteCollectionView: UICollectionView!
     
-    var favoriteProducts: [Product] = []
+    private var viewModel = FavoriteViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,8 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadFavoriteProducts()
+        viewModel.loadFavoriteProducts()
+        favoriteCollectionView.reloadData()
     }
     
     
@@ -30,39 +31,29 @@ class FavoriteViewController: UIViewController {
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.register(FavoriteCollectionViewCell.nib(), forCellWithReuseIdentifier: FavoriteCollectionViewCell.identifier)
     }
-    
-    func loadFavoriteProducts() {
-        if let encodedData = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
-           let storedProducts = try? PropertyListDecoder().decode([Product].self, from: encodedData) {
-            favoriteProducts = storedProducts
-        }
-        favoriteCollectionView.reloadData()
-    }
-    
 }
 
 extension FavoriteViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriteProducts.count
+        return viewModel.numberOfFavorites()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as! FavoriteCollectionViewCell
-        cell.bind(data: favoriteProducts[indexPath.item])
-        cell.delegate = self
+        if let product = viewModel.product(at: indexPath.item) {
+            cell.bind(data: product)
+            cell.delegate = self
+        }
         return cell
     }
-    
 }
 
 extension FavoriteViewController: FavoriteCollectionViewCellDelegate {
     func didSelectFavorite(cell: UICollectionViewCell) {
-        if let indexPath = favoriteCollectionView.indexPath(for: cell) {
-            let selectedProduct = favoriteProducts[indexPath.row]
-            FavoriteManager.shared.toggleFavorite(selectedProduct)
-            favoriteProducts.remove(at: indexPath.row)
+        if let indexPath = favoriteCollectionView.indexPath(for: cell),
+           let product = viewModel.product(at: indexPath.row) {
+            viewModel.toggleFavorite(for: product)
             favoriteCollectionView.deleteItems(at: [indexPath])
-            favoriteCollectionView.reloadData()
         }
     }
 }

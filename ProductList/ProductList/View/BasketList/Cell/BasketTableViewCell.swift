@@ -57,6 +57,8 @@ class BasketTableViewCell: UITableViewCell {
         self.product = data
         setupImageView(with: data.thumbnail)
         setupLabels(with: data)
+        quantity = data.quantity
+        updateRemoveButtonState()
     }
     
     // MARK: - Actions
@@ -123,8 +125,8 @@ class BasketTableViewCell: UITableViewCell {
         try! realm.write {
             product.quantity = quantity
             realm.add(product, update: .modified)
-            delegate?.didUpdateQuantity()
         }
+        delegate?.didUpdateQuantity()
         updateRemoveButtonState()
     }
 }
