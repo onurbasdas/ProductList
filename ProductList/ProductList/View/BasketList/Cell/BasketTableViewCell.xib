@@ -9,6 +9,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="Inter-VariableFont_slnt,wght.ttf">
+            <string>Inter-Regular</string>
             <string>Inter-Regular_Bold</string>
         </array>
     </customFonts>
@@ -33,13 +34,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FN-Io-kls">
-                                <rect key="frame" x="85" y="15" width="131" height="14.666666666666664"/>
+                                <rect key="frame" x="85" y="15" width="32" height="14.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-WI-xHK">
-                                <rect key="frame" x="85" y="30.333333333333339" width="131" height="14.666666666666668"/>
+                                <rect key="frame" x="85" y="30.333333333333339" width="32" height="14.666666666666668"/>
                                 <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -101,21 +102,30 @@
                                     <constraint firstAttribute="height" constant="20" id="ZqQ-xZ-L3j"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="290-CE-z8D">
+                                <rect key="frame" x="122" y="30.333333333333339" width="94" height="14.666666666666668"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
+                                <color key="textColor" name="color3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="msH-NO-Ds2" firstAttribute="leading" secondItem="290-CE-z8D" secondAttribute="trailing" constant="10" id="4hg-M5-xYw"/>
                             <constraint firstItem="E2a-jl-ET6" firstAttribute="leading" secondItem="0Jp-9F-UoS" secondAttribute="leading" constant="10" id="5AN-sI-KSM"/>
                             <constraint firstItem="3FN-Io-kls" firstAttribute="leading" secondItem="E2a-jl-ET6" secondAttribute="trailing" constant="5" id="CXL-AC-iPK"/>
                             <constraint firstAttribute="trailing" secondItem="msH-NO-Ds2" secondAttribute="trailing" constant="20" id="Cja-M5-ddc"/>
                             <constraint firstAttribute="height" constant="60" id="HOn-Jd-yTa"/>
+                            <constraint firstItem="290-CE-z8D" firstAttribute="top" secondItem="PYS-WI-xHK" secondAttribute="top" id="OgD-86-jHz"/>
                             <constraint firstItem="PYS-WI-xHK" firstAttribute="bottom" secondItem="E2a-jl-ET6" secondAttribute="bottom" constant="-5" id="RC8-J5-AJz"/>
                             <constraint firstItem="msH-NO-Ds2" firstAttribute="centerY" secondItem="E2a-jl-ET6" secondAttribute="centerY" id="UaJ-zz-Ve5"/>
                             <constraint firstAttribute="width" constant="346" id="YW1-2N-PlQ"/>
                             <constraint firstItem="3FN-Io-kls" firstAttribute="top" secondItem="E2a-jl-ET6" secondAttribute="top" constant="5" id="fCo-in-JiL"/>
+                            <constraint firstItem="290-CE-z8D" firstAttribute="leading" secondItem="PYS-WI-xHK" secondAttribute="trailing" constant="5" id="hv8-Rd-5DI"/>
                             <constraint firstItem="E2a-jl-ET6" firstAttribute="top" secondItem="0Jp-9F-UoS" secondAttribute="top" constant="10" id="lbe-2l-iXo"/>
                             <constraint firstItem="PYS-WI-xHK" firstAttribute="leading" secondItem="3FN-Io-kls" secondAttribute="leading" id="quR-8V-USw"/>
                             <constraint firstItem="3FN-Io-kls" firstAttribute="trailing" secondItem="PYS-WI-xHK" secondAttribute="trailing" id="sga-69-uNM"/>
-                            <constraint firstItem="msH-NO-Ds2" firstAttribute="leading" secondItem="PYS-WI-xHK" secondAttribute="trailing" constant="10" id="zGl-Ye-KU9"/>
+                            <constraint firstItem="290-CE-z8D" firstAttribute="bottom" secondItem="PYS-WI-xHK" secondAttribute="bottom" id="u3Q-BK-5BJ"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -131,8 +141,9 @@
             <connections>
                 <outlet property="basketAddProductBtn" destination="VT6-G1-O4c" id="fHx-xt-dtS"/>
                 <outlet property="basketBgView" destination="0Jp-9F-UoS" id="mZW-mJ-nrb"/>
-                <outlet property="basketDescLabel" destination="PYS-WI-xHK" id="VN0-z5-wy6"/>
+                <outlet property="basketDiscountPriceLabel" destination="PYS-WI-xHK" id="VN0-z5-wy6"/>
                 <outlet property="basketImageView" destination="E2a-jl-ET6" id="wiq-To-79h"/>
+                <outlet property="basketPriceLabel" destination="290-CE-z8D" id="hTo-LK-OSp"/>
                 <outlet property="basketRemoveProductBtn" destination="jGP-Mq-9qi" id="C2y-n9-Oq8"/>
                 <outlet property="basketTitleLabel" destination="3FN-Io-kls" id="Yeg-Ri-Xkn"/>
                 <outlet property="basketTotalLabel" destination="Zsa-N5-ziy" id="byi-Ua-1Fz"/>

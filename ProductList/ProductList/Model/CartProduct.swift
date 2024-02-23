@@ -12,9 +12,10 @@ class CartProduct: Object {
     @objc dynamic var id: Int = 0
     @objc dynamic var title: String = ""
     @objc dynamic var thumbnail: String = ""
-    @objc dynamic var desc: String? // Eğer açıklama zorunlu değilse optional olabilir
+    @objc dynamic var desc: String?
     @objc dynamic var price: Int = 0
-    @objc dynamic var quantity: Int = 1 // Sepete eklenen ürün miktarı
+    @objc dynamic var quantity: Int = 1
+    @objc dynamic var discountPercentage: Double = 0.0
 
     override static func primaryKey() -> String? {
         return "id"

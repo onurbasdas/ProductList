@@ -101,7 +101,7 @@ class ProductListDetailViewController: UIViewController {
         cartProduct.price = product.price ?? 0
         cartProduct.thumbnail = product.thumbnail ?? ""
         cartProduct.quantity = 1
-        
+        cartProduct.discountPercentage = product.discountPercentage ?? 0.0
         return cartProduct
     }
     

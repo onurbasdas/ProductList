@@ -49,18 +49,26 @@ class BasketViewController: UIViewController {
     }
     
     func updateBasketInfo() {
-        guard let basketProducts = basketProducts else {
-            return
+        guard let basketProducts = basketProducts else { return }
+        
+        var subtotal = 0
+        var totalDiscount = 0.0
+        for product in basketProducts {
+            let productTotal = product.price * product.quantity
+            let productDiscount = Double(productTotal) * product.discountPercentage / 100
+            subtotal += productTotal
+            totalDiscount += productDiscount
         }
-        let totalPrice = basketProducts.reduce(0) { $0 + ($1.price * $1.quantity) }
-        basketPriceLabel.text = "\(totalPrice) TL"
+        
+        let totalPrice = Double(subtotal) - totalDiscount
+        basketPriceLabel.text = "\(subtotal) TL"
+        basketDiscountLabel.text = "\(Int(totalDiscount)) TL"
+        basketTotalLabel.text = "\(Int(totalPrice)) TL"
     }
-    
-    
+
     @IBAction func basketCheckOutBtnPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toPaySegue", sender: nil)
     }
-    
 }
 
 extension BasketViewController: UITableViewDelegate, UITableViewDataSource {
@@ -79,6 +87,10 @@ extension BasketViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension BasketViewController: BasketTableViewCellDelegate {
+    func didUpdateQuantity() {
+        updateBasketInfo()
+    }
+    
     func didRemoveBasket(cell: UITableViewCell) {
         if let indexPath = basketTableView.indexPath(for: cell) {
             if let removedProduct = basketProducts?[indexPath.row] {

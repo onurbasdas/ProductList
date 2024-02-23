@@ -23,8 +23,8 @@ class CheckoutViewController: UIViewController,UITextFieldDelegate {
         checkoutNameTf.delegate = self
         checkoutEmailTf.delegate = self
         checkoutPhoneTf.delegate = self
-        
-        // Diğer gerekli işlemleri de ekleyebilirsiniz
+        checkoutPayBtn.backgroundColor = .gray
+        checkoutPayBtn.layer.cornerRadius = 10
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -41,8 +41,6 @@ class CheckoutViewController: UIViewController,UITextFieldDelegate {
             textField.placeholder = "Enter \(textField.placeholder ?? "")"
         }
     }
-    
-    
     
     @IBAction func checkoutPayBtnPressed(_ sender: UIButton) {
         
