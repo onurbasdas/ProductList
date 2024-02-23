@@ -16,13 +16,13 @@ class BasketViewController: UIViewController {
     @IBOutlet weak var basketTotalLabel: UILabel!
     @IBOutlet weak var basketCheckOutBtn: UIButton!
     
-    var basketProducts: Results<CartProduct>?
-    var notificationToken: NotificationToken?
+    private var viewModel = BasketViewModel()
+    private var notificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupRealm()
+        setupBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,7 +30,7 @@ class BasketViewController: UIViewController {
         updateBasketInfo()
     }
     
-    func setupUI() {
+    private func setupUI() {
         self.navigationItem.title = Constants.basketTitle
         basketTableView.delegate = self
         basketTableView.dataSource = self
@@ -39,33 +39,20 @@ class BasketViewController: UIViewController {
         basketCheckOutBtn.layer.cornerRadius = 10
     }
     
-    func setupRealm() {
-        let realm = try! Realm()
-        basketProducts = realm.objects(CartProduct.self)
-        notificationToken = basketProducts?.observe { [weak self] _ in
+    private func setupBindings() {
+        notificationToken = viewModel.basketProducts?.observe { [weak self] _ in
             self?.basketTableView.reloadData()
             self?.updateBasketInfo()
         }
     }
     
-    func updateBasketInfo() {
-        guard let basketProducts = basketProducts else { return }
-        
-        var subtotal = 0
-        var totalDiscount = 0.0
-        for product in basketProducts {
-            let productTotal = product.price * product.quantity
-            let productDiscount = Double(productTotal) * product.discountPercentage / 100
-            subtotal += productTotal
-            totalDiscount += productDiscount
-        }
-        
-        let totalPrice = Double(subtotal) - totalDiscount
-        basketPriceLabel.text = "\(subtotal) TL"
-        basketDiscountLabel.text = "\(Int(totalDiscount)) TL"
-        basketTotalLabel.text = "\(Int(totalPrice)) TL"
+    private func updateBasketInfo() {
+        let basketInfo = viewModel.updateBasketInfo()
+        basketPriceLabel.text = basketInfo.subtotal
+        basketDiscountLabel.text = basketInfo.discount
+        basketTotalLabel.text = basketInfo.total
     }
-
+    
     @IBAction func basketCheckOutBtnPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "toPaySegue", sender: nil)
     }
@@ -73,12 +60,12 @@ class BasketViewController: UIViewController {
 
 extension BasketViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return basketProducts?.count ?? 0
+        return viewModel.numberOfProducts
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = basketTableView.dequeueReusableCell(withIdentifier: BasketTableViewCell.identifier, for: indexPath) as! BasketTableViewCell
-        if let product = basketProducts?[indexPath.row] {
+        if let product = viewModel.product(at: indexPath.row) {
             cell.bind(data: product)
             cell.delegate = self
         }
@@ -93,9 +80,8 @@ extension BasketViewController: BasketTableViewCellDelegate {
     
     func didRemoveBasket(cell: UITableViewCell) {
         if let indexPath = basketTableView.indexPath(for: cell) {
-            if let removedProduct = basketProducts?[indexPath.row] {
-                CartManager.shared.removeProductFromCart(removedProduct)
-            }
+            viewModel.removeProduct(at: indexPath.row)
+            updateBasketInfo()
         }
     }
 }

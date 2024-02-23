@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7733C1412B88C46200F2E25D /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7733C1402B88C46200F2E25D /* BasketViewModel.swift */; };
 		77A3EB472B862EE300B519DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A3EB462B862EE300B519DC /* AppDelegate.swift */; };
 		77A3EB492B862EE300B519DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A3EB482B862EE300B519DC /* SceneDelegate.swift */; };
 		77A3EB4B2B862EE300B519DC /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A3EB4A2B862EE300B519DC /* ProductListViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7733C1402B88C46200F2E25D /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
 		77A3EB432B862EE300B519DC /* ProductList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77A3EB462B862EE300B519DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77A3EB482B862EE300B519DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				77A3EB622B8630E700B519DC /* ProductListViewModel.swift */,
+				7733C1402B88C46200F2E25D /* BasketViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				B9DDAB022B873E0F004B80B7 /* FavoriteCollectionViewCell.swift in Sources */,
 				77A3EB6F2B8638F700B519DC /* BasketViewController.swift in Sources */,
 				77A3EB4B2B862EE300B519DC /* ProductListViewController.swift in Sources */,
+				7733C1412B88C46200F2E25D /* BasketViewModel.swift in Sources */,
 				B9DDAB0F2B87AA7D004B80B7 /* ProductDetailSliderCollectionViewCell.swift in Sources */,
 				77A3EB662B8630FE00B519DC /* Extensions.swift in Sources */,
 				B9FCCED12B87303A0031D6A2 /* ProductListDetailViewController.swift in Sources */,
