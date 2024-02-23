@@ -202,7 +202,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaQ-vm-7Dv">
-                                <rect key="frame" x="14" y="679" width="354" height="50"/>
+                                <rect key="frame" x="20" y="689" width="353" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="GF0-Xg-Qtj"/>
                                 </constraints>
@@ -220,14 +220,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RhJ-3w-OUx" firstAttribute="leading" secondItem="38c-ZJ-ayc" secondAttribute="trailing" constant="5" id="2eo-Ih-9XE"/>
-                            <constraint firstItem="uaQ-vm-7Dv" firstAttribute="leading" secondItem="vJP-bk-K9H" secondAttribute="leading" id="6Ce-RH-6cj"/>
                             <constraint firstItem="dAw-m1-SXc" firstAttribute="trailing" secondItem="Uwq-Dk-yCT" secondAttribute="trailing" id="I2E-Ms-AhL"/>
                             <constraint firstItem="UEl-Cm-CF0" firstAttribute="trailing" secondItem="RhJ-3w-OUx" secondAttribute="trailing" id="JrN-P9-rbs"/>
                             <constraint firstItem="38c-ZJ-ayc" firstAttribute="leading" secondItem="vJP-bk-K9H" secondAttribute="trailing" constant="20" id="Jsz-LE-3fO"/>
                             <constraint firstItem="Uwq-Dk-yCT" firstAttribute="top" secondItem="dAw-m1-SXc" secondAttribute="top" id="K1p-4I-CM0"/>
-                            <constraint firstItem="dAw-m1-SXc" firstAttribute="bottom" secondItem="uaQ-vm-7Dv" secondAttribute="bottom" constant="40" id="Q2T-xg-Lsr"/>
-                            <constraint firstItem="uaQ-vm-7Dv" firstAttribute="trailing" secondItem="RhJ-3w-OUx" secondAttribute="trailing" id="T04-Sh-2rU"/>
+                            <constraint firstItem="dAw-m1-SXc" firstAttribute="trailing" secondItem="uaQ-vm-7Dv" secondAttribute="trailing" constant="20" id="Lbo-t9-2b2"/>
+                            <constraint firstItem="dAw-m1-SXc" firstAttribute="bottom" secondItem="uaQ-vm-7Dv" secondAttribute="bottom" constant="30" id="Q2T-xg-Lsr"/>
                             <constraint firstItem="UEl-Cm-CF0" firstAttribute="top" secondItem="vJP-bk-K9H" secondAttribute="bottom" constant="10" id="YOY-Z6-pqd"/>
+                            <constraint firstItem="uaQ-vm-7Dv" firstAttribute="leading" secondItem="dAw-m1-SXc" secondAttribute="leading" constant="20" id="bAc-v4-dJe"/>
                             <constraint firstItem="38c-ZJ-ayc" firstAttribute="centerY" secondItem="RhJ-3w-OUx" secondAttribute="centerY" id="bIk-V6-Zo1"/>
                             <constraint firstItem="UEl-Cm-CF0" firstAttribute="leading" secondItem="vJP-bk-K9H" secondAttribute="leading" id="cFx-wZ-r9p"/>
                             <constraint firstItem="dAw-m1-SXc" firstAttribute="trailing" secondItem="RhJ-3w-OUx" secondAttribute="trailing" constant="25" id="f2X-rl-GcK"/>
@@ -314,14 +314,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WSj-Ie-VmT">
-                                <rect key="frame" x="0.0" y="103" width="393" height="437"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="466"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="437" id="HCb-5S-idp"/>
-                                </constraints>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0x-eJ-Wyl">
-                                <rect key="frame" x="0.0" y="540" width="393" height="229"/>
+                                <rect key="frame" x="0.0" y="569" width="393" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="OPq-LN-bed">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>
@@ -415,16 +412,14 @@
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tv2-xT-eQu">
-                                        <rect key="frame" x="20" y="159" width="353" height="50"/>
+                                        <rect key="frame" x="20" y="120" width="353" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="OYY-P0-KBU"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="18"/>
                                         <color key="tintColor" name="color5"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" title="CHECKOUT">
-                                            <fontDescription key="titleFontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="18"/>
-                                            <color key="baseBackgroundColor" red="0.72941176470588232" green="0.72549019607843135" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </buttonConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="CHECKOUT"/>
                                         <connections>
                                             <action selector="basketCheckOutBtnPressed:" destination="HA8-au-f9c" eventType="touchUpInside" id="FEi-IU-xkd"/>
                                         </connections>
@@ -433,10 +428,11 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="OPq-LN-bed" firstAttribute="top" secondItem="G0x-eJ-Wyl" secondAttribute="top" id="3Lz-Lf-6ZC"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tv2-xT-eQu" secondAttribute="bottom" constant="20" id="4mD-L6-9eq"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tv2-xT-eQu" secondAttribute="bottom" constant="30" id="4mD-L6-9eq"/>
                                     <constraint firstAttribute="trailing" secondItem="OPq-LN-bed" secondAttribute="trailing" id="5Jm-Ig-64h"/>
                                     <constraint firstAttribute="trailing" secondItem="Tv2-xT-eQu" secondAttribute="trailing" constant="20" id="GR8-fF-ISe"/>
                                     <constraint firstItem="OPq-LN-bed" firstAttribute="leading" secondItem="G0x-eJ-Wyl" secondAttribute="leading" id="GYc-8b-sU8"/>
+                                    <constraint firstAttribute="height" constant="200" id="O9I-lp-C68"/>
                                     <constraint firstItem="Tv2-xT-eQu" firstAttribute="leading" secondItem="G0x-eJ-Wyl" secondAttribute="leading" constant="20" id="arj-jZ-qGL"/>
                                 </constraints>
                             </view>
@@ -496,12 +492,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4Gf-vG-kxO"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="18"/>
                                 <color key="tintColor" name="color5"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="PAY">
-                                    <fontDescription key="titleFontDescription" name="Inter-Regular_Bold" family="Inter" pointSize="18"/>
-                                    <color key="baseBackgroundColor" red="0.72941176470588232" green="0.72549019607843135" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </buttonConfiguration>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="PAY"/>
                                 <connections>
                                     <action selector="checkoutPayBtnPressed:" destination="RvA-Dr-EBm" eventType="touchUpInside" id="3ok-5g-UuM"/>
                                 </connections>

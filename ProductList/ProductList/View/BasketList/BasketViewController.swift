@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BasketViewController: UIViewController {
     
@@ -15,16 +16,17 @@ class BasketViewController: UIViewController {
     @IBOutlet weak var basketTotalLabel: UILabel!
     @IBOutlet weak var basketCheckOutBtn: UIButton!
     
-    var basketProducts: [Product] = []
+    var basketProducts: Results<CartProduct>?
+    var notificationToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupRealm()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadCartProducts()
         updateBasketInfo()
     }
     
@@ -33,27 +35,25 @@ class BasketViewController: UIViewController {
         basketTableView.delegate = self
         basketTableView.dataSource = self
         basketTableView.register(BasketTableViewCell.nib(), forCellReuseIdentifier: BasketTableViewCell.identifier)
+        basketCheckOutBtn.backgroundColor = .gray
         basketCheckOutBtn.layer.cornerRadius = 10
     }
     
-    func loadCartProducts() {
-        if let encodedData = UserDefaults.standard.value(forKey: "cartProducts") as? Data,
-           let storedProducts = try? PropertyListDecoder().decode([Product].self, from: encodedData) {
-            basketProducts = storedProducts
+    func setupRealm() {
+        let realm = try! Realm()
+        basketProducts = realm.objects(CartProduct.self)
+        notificationToken = basketProducts?.observe { [weak self] _ in
+            self?.basketTableView.reloadData()
+            self?.updateBasketInfo()
         }
-        basketTableView.reloadData()
     }
     
     func updateBasketInfo() {
-        // Sepetteki ürünlerin toplam fiyatını, indirimli toplam fiyatını ve indirimi hesapla
-        let totalPrice = basketProducts.reduce(0) { $0 + ($1.price ?? 0) }
-        let totalDiscountedPrice = basketProducts.reduce(0) { $0 + Int(($1.discountPercentage ?? 0)) * ($1.quantity ?? 1) }
-        let totalDiscount = totalPrice - totalDiscountedPrice
-        
-        // Fiyat etiketlerini güncelle
+        guard let basketProducts = basketProducts else {
+            return
+        }
+        let totalPrice = basketProducts.reduce(0) { $0 + ($1.price * $1.quantity) }
         basketPriceLabel.text = "\(totalPrice) TL"
-        basketDiscountLabel.text = "-\(totalDiscountedPrice) TL"
-        basketTotalLabel.text = "\(totalDiscount) TL"
     }
     
     
@@ -65,14 +65,25 @@ class BasketViewController: UIViewController {
 
 extension BasketViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return basketProducts.count
+        return basketProducts?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = basketTableView.dequeueReusableCell(withIdentifier: BasketTableViewCell.identifier, for: indexPath) as! BasketTableViewCell
-        cell.bind(data: basketProducts[indexPath.row])
+        if let product = basketProducts?[indexPath.row] {
+            cell.bind(data: product)
+            cell.delegate = self
+        }
         return cell
     }
-    
-    
+}
+
+extension BasketViewController: BasketTableViewCellDelegate {
+    func didRemoveBasket(cell: UITableViewCell) {
+        if let indexPath = basketTableView.indexPath(for: cell) {
+            if let removedProduct = basketProducts?[indexPath.row] {
+                CartManager.shared.removeProductFromCart(removedProduct)
+            }
+        }
+    }
 }

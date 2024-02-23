@@ -31,6 +31,16 @@ class ProductListDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if let selectedProduct = selectedProduct {
+            let cartProduct = convertToCartProduct(product: selectedProduct)
+            
+            if CartManager.shared.isProductInCart(cartProduct) {
+                isAddedToCart = true
+                let buttonText = "REMOVE FROM CART"
+                productListDetailAddCartBtn.setTitle(buttonText, for: .normal)
+            }
+        }
+        
         if let data = UserDefaults.standard.value(forKey: "favoriteProducts") as? Data,
            let previousFavoriteProducts = try? PropertyListDecoder().decode([Product].self, from: data),
            let selectedProduct = selectedProduct,
@@ -38,16 +48,7 @@ class ProductListDetailViewController: UIViewController {
             isFavoriteToCart = true
             productListDetailFavoriteBtn.tintColor = .red
         }
-        
-        if let data = UserDefaults.standard.value(forKey: "cartProducts") as? Data,
-           let previousFavoriteProducts = try? PropertyListDecoder().decode([Product].self, from: data),
-           let selectedProduct = selectedProduct,
-           previousFavoriteProducts.contains(where: { $0.id == selectedProduct.id }) {
-            isAddedToCart = true
-            productListDetailAddCartBtn.setTitle("REMOVE TO CART", for: .normal)
-        }
     }
-    
     
     private func setupUI() {
         productListCollectionView.delegate = self
@@ -92,18 +93,30 @@ class ProductListDetailViewController: UIViewController {
         }
     }
     
+    func convertToCartProduct(product: Product) -> CartProduct {
+        let cartProduct = CartProduct()
+        cartProduct.id = product.id ?? 0
+        cartProduct.title = product.title ?? ""
+        cartProduct.desc = product.description
+        cartProduct.price = product.price ?? 0
+        cartProduct.thumbnail = product.thumbnail ?? ""
+        cartProduct.quantity = 1
+        
+        return cartProduct
+    }
+    
     @IBAction func productListDetailAddCartBtnPressed(_ sender: UIButton) {
         isAddedToCart.toggle()
-        let buttonText = isAddedToCart ? "REMOVE FROM CART": "ADD TO CART"
+        let buttonText = isAddedToCart ? "REMOVE FROM CART" : "ADD TO CART"
         productListDetailAddCartBtn.setTitle(buttonText, for: .normal)
         
         if let selectedProduct = selectedProduct {
+            let cartProduct = convertToCartProduct(product: selectedProduct)
+            
             if isAddedToCart {
-                // Sepete ekleme işlemi
-                CartManager.shared.addProductToCart(selectedProduct)
+                CartManager.shared.addProductToCart(cartProduct)
             } else {
-                // Sepetten çıkarma işlemi
-                CartManager.shared.removeProductFromCart(selectedProduct)
+                CartManager.shared.removeProductFromCart(cartProduct)
             }
         }
     }

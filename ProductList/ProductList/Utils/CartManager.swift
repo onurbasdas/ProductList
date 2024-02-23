@@ -6,51 +6,39 @@
 //
 
 import Foundation
+import RealmSwift
 
 class CartManager {
     static let shared = CartManager()
-    private init() {}
+    private var realm: Realm
 
-    private var cartProducts: [Product] {
-        get {
-            if let data = UserDefaults.standard.value(forKey: "cartProducts") as? Data,
-               let products = try? PropertyListDecoder().decode([Product].self, from: data) {
-                return products
+    init() {
+        realm = try! Realm()
+    }
+
+    func addProductToCart(_ product: CartProduct) {
+        try! realm.write {
+            realm.add(product, update: .modified)
+        }
+    }
+
+    func removeProductFromCart(_ product: CartProduct) {
+        if let cartProduct = realm.object(ofType: CartProduct.self, forPrimaryKey: product.id) {
+            try! realm.write {
+                realm.delete(cartProduct)
             }
-            return []
         }
-        set {
-            if let data = try? PropertyListEncoder().encode(newValue) {
-                UserDefaults.standard.set(data, forKey: "cartProducts")
+    }
+
+    func updateProductQuantityInCart(productId: Int, quantity: Int) {
+        if let cartProduct = realm.object(ofType: CartProduct.self, forPrimaryKey: productId) {
+            try! realm.write {
+                cartProduct.quantity = quantity
             }
         }
     }
-
-    func addProductToCart(_ product: Product) {
-        cartProducts.append(product)
-        updateCartInUserDefaults()
-    }
-
-    func removeProductFromCart(_ product: Product) {
-        cartProducts.removeAll { $0.id == product.id }
-        updateCartInUserDefaults()
-    }
-
-    func updateCartProducts(_ products: [Product]) {
-        cartProducts = products
-        updateCartInUserDefaults()
-    }
-
-    func getCartProducts() -> [Product] {
-        return cartProducts
-    }
-
-    private func updateCartInUserDefaults() {
-        do {
-            let encodedData = try PropertyListEncoder().encode(cartProducts)
-            UserDefaults.standard.set(encodedData, forKey: "cartProducts")
-        } catch {
-            print("Error encoding cart products: \(error.localizedDescription)")
-        }
+   
+    func isProductInCart(_ product: CartProduct) -> Bool {
+        return realm.object(ofType: CartProduct.self, forPrimaryKey: product.id) != nil
     }
 }

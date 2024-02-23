@@ -8,6 +8,10 @@
 import UIKit
 import SDWebImage
 
+protocol BasketTableViewCellDelegate: AnyObject {
+    func didRemoveBasket(cell: UITableViewCell)
+}
+
 class BasketTableViewCell: UITableViewCell {
     
     static let identifier = "BasketTableViewCell"
@@ -23,12 +27,13 @@ class BasketTableViewCell: UITableViewCell {
     @IBOutlet weak var basketTotalLabel: UILabel!
     @IBOutlet weak var basketAddProductBtn: UIButton!
     
-    var product: Product?
+    var product: CartProduct?
     var quantity: Int = 1 {
         didSet {
             basketTotalLabel.text = "\(quantity)"
         }
     }
+    weak var delegate: BasketTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,15 +50,18 @@ class BasketTableViewCell: UITableViewCell {
         
     }
     
-    func bind(data: Product) {
-        basketImageView.sd_setImage(with: URL(string: data.thumbnail ?? ""))
+    func bind(data: CartProduct) {
+        basketImageView.sd_setImage(with: URL(string: data.thumbnail ))
         basketTitleLabel.text = data.title
         basketDescLabel.text = data.description
+        basketTotalLabel.text = "\(data.quantity)"
+        quantity = data.quantity
     }
     
     @IBAction func basketRemoveProductBtnPressed(_ sender: UIButton) {
         if quantity > 1 {
             quantity -= 1
+            updateCartQuantity()
         } else {
             basketRemoveProductBtn.tintColor = .gray
         }
@@ -61,10 +69,15 @@ class BasketTableViewCell: UITableViewCell {
     
     @IBAction func basketAddProductBtnPressed(_ sender: UIButton) {
         quantity += 1
+        updateCartQuantity()
     }
     
     @IBAction func basketDeleteProductBtnPressed(_ sender: UIButton) {
-        
+        self.delegate?.didRemoveBasket(cell: self)
     }
     
+    private func updateCartQuantity() {
+        guard let product = product else { return }
+        CartManager.shared.updateProductQuantityInCart(productId: product.id , quantity: quantity)
+    }
 }
